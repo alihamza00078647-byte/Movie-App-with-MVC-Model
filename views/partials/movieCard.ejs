@@ -1,0 +1,51 @@
+<a href="/moviedetials/<%= movie._id %>" class="bg-gray-800 rounded-xl overflow-hidden shadow-2xl transition-transform hover:scale-[1.02] flex flex-col">
+                    
+                    <!-- Poster Section -->
+                    <div class="relative group">
+                        <img class="w-full h-[450px] object-cover" src="<%= movie.poster %>" alt="<%= movie.title %>">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <button class="bg-red-600 text-white px-6 py-2 rounded-full font-bold shadow-lg">View Details</button>
+                        </div>
+                        <div class="absolute top-4 left-4 bg-black/70 backdrop-blur-md px-3 py-1 rounded text-sm font-bold border border-gray-600">
+                            ⭐ <%= movie.imdb.rating %>
+                        </div>
+                    </div>
+
+                    <!-- Content Section -->
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-2">
+                            <h2 class="text-2xl font-bold leading-tight"><%= movie.title %></h2>
+                            <span class="text-gray-400 text-sm font-mono"><%= movie.year %></span>
+                        </div>
+
+                        <!-- Genres Tags -->
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <% movie.genres.forEach(genre => { %>
+                                <span class="bg-gray-700 text-xs px-2 py-1 rounded-md text-gray-300 border border-gray-600">
+                                    <%= genre %>
+                                </span>
+                            <% }); %>
+                        </div>
+
+                        <p class="text-gray-400 text-sm line-clamp-3 mb-4">
+                            <%= movie.plot %>
+                        </p>
+
+                        <!-- Cast Snippet -->
+                        <div class="text-xs text-gray-500 italic">
+                            Starring: <%= movie.cast.slice(0, 3).join(', ') %>
+                        </div>
+                    </div>
+
+                    <!-- Footer Action -->
+                    <div class="p-4 bg-gray-700/30 border-t border-gray-700 flex justify-between items-center">
+                        <span class="text-xs uppercase tracking-widest text-gray-400 font-bold">
+                            <%= movie.rated %> | <%= movie.runtime %> min
+                        </span>
+                        <div class="flex items-center gap-2">
+                            <span class="text-green-500 text-xs font-bold font-mono">
+                                <%= movie.tomatoes.viewer.meter %>% Fresh
+                            </span>
+                        </div>
+                    </div>
+                </a>
