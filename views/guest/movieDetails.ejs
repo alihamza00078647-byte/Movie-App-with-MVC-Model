@@ -29,7 +29,7 @@
                             </div>
                             <% if (movie.tomatoes && movie.tomatoes.viewer) { %>
                                 <div class="bg-gray-800 px-4 py-2 rounded-lg">
-                                    <span class="text-green-400 font-bold"><%= movie.tomatoes.viewer.meter %>%</span>
+                                    <span class="text-green-400 font-bold"><%= movie.tomatoes.viewer.meter %></span>
                                     <span class="text-gray-400 text-sm">Fresh</span>
                                 </div>
                             <% } %>
@@ -151,6 +151,9 @@
                 <%- include('../partials/movieCard', {movie : movie}) %>
             <% }); %>
         </div>
+        <% comment.forEach(({name, email, text}) => { %>
+            <%- include('../partials/comments', {name, email, text}) %>
+        <% }); %>
     </main>
 
     <%- include('../partials/footer') %>
