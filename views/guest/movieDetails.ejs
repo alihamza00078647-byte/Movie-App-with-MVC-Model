@@ -2,17 +2,7 @@
 
 <body class="bg-gray-900 text-gray-100">
     <!-- Header -->
-    <header class="border-b border-gray-800 pb-4 pt-8 px-8">
-        <div class="flex justify-between items-center">
-            <a href="/" class="text-red-600 hover:text-red-400 transition-colors">
-                <h1 class="text-3xl font-bold tracking-tighter md:inline">MFLIX<span class="text-white">.</span></h1>
-            </a>
-            <%- include('../partials/searchbar') %>
-            <div>
-                <h1 class="text-2xl font-bold text-red-600 tracking-tighter hidden md:inline">Account</h1>
-            </div>
-        </div>
-    </header>
+    <%- include('../partials/searchbar') %>
 
     <!-- Movie Details -->
     <main class="px-8 py-12">
@@ -64,6 +54,22 @@
                             <h2 class="text-2xl font-bold mb-3">Plot</h2>
                             <p class="text-gray-300 leading-relaxed"><%= movie.plot %></p>
                         </div>
+
+                        <!-- Watch & Download  -->
+
+                        <div class="flex flex-wrap gap-2">
+                            <a href="/watch">
+                                <span class="bg-green-600 text-white p-4 rounded-xl text-lg font-medium hover:bg-green-700">
+                                    Watch Now
+                                </span>
+                            </a>
+                            <a href="/download/App">
+                                <span class="bg-gray-600 text-white p-4 rounded-xl text-lg font-medium hover:bg-gray-700">
+                                    Download App Now
+                                </span>
+                            </a>
+                        </div>
+
 
                         <!-- Cast -->
                         <% if (movie.cast && movie.cast.length > 0) { %>

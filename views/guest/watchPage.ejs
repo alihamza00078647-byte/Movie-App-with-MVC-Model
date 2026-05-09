@@ -1,0 +1,89 @@
+<%- include('../partials/head') %>
+
+<body class="bg-gray-900 text-gray-100 antialiased">
+    <%- include('../partials/searchbar') %>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        
+        <!-- Video Player Section -->
+        <div class="relative group mb-10">
+            <!-- Aspect Ratio Container (16:9) -->
+            <div class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-gray-800 bg-black">
+                <video 
+                    class="w-full h-full object-cover"
+                    src="/videos/My_Hero_Academia_FINAL_SEASON_More_Official_Trailer_Crunchyroll.mp4"
+                    controls
+                    muted
+                    autoplay
+                    controlsList="nodownload"
+                    poster="/images/poster-placeholder.jpg" 
+                >
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+
+        <!-- Video Info Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Left Side: Details -->
+            <div class="lg:col-span-2 space-y-6">
+                <div class="bg-gray-800/40 backdrop-blur-md rounded-2xl p-6 md:p-8 border border-gray-700/50">
+                    <div class="flex flex-wrap items-center gap-3 mb-4">
+                        <span class="bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">Final Season</span>
+                        <span class="text-gray-400 text-sm italic">Official Trailer</span>
+                    </div>
+
+                    <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">
+                        My Hero Academia <span class="text-red-600">—</span> Final Season
+                    </h1>
+
+                    <div class="flex flex-wrap gap-4 mb-6">
+                        <button class="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-full font-bold transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-red-900/20">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168l4.2 2.407a1 1 0 010 1.744l-4.2 2.407A1 1 0 018 13.17V7.83a1 1 0 011.555-.832z"/></svg>
+                            Play Now
+                        </button>
+                        <button class="flex items-center gap-2 border border-gray-600 hover:bg-gray-700 text-gray-100 px-8 py-3 rounded-full font-bold transition-all">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                            Watchlist
+                        </button>
+                    </div>
+
+                    <div class="border-t border-gray-700/50 pt-6">
+                        <h3 class="text-gray-400 text-xs font-bold uppercase tracking-widest mb-3">Synopsis</h3>
+                        <p class="text-gray-300 leading-relaxed md:text-lg italic">
+                            "Experience the final season of My Hero Academia with this official trailer. Watch the epic conclusion of this beloved anime series as heroes and villains face off for the last time."
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Sidebar / Related Content -->
+            <div class="lg:col-span-1">
+                <div class="bg-gray-800/20 rounded-2xl p-6 border border-gray-800">
+                    <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                        <span class="w-1 h-5 bg-red-600 rounded-full"></span>
+                        Recommended
+                    </h2>
+                    
+                    <!-- Placeholder for Recommended items -->
+                    <div class="space-y-4">
+                        <div class="animate-pulse flex gap-4">
+                            <div class="w-24 h-14 bg-gray-700 rounded-md"></div>
+                            <div class="flex-1 space-y-2 py-1">
+                                <div class="h-2 bg-gray-700 rounded w-3/4"></div>
+                                <div class="h-2 bg-gray-700 rounded w-1/2"></div>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-4 italic text-center">More videos coming soon...</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>

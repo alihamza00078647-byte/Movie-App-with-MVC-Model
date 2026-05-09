@@ -11,18 +11,21 @@ const ejs = require('ejs');
 const path = require('path');
 const rootDir = require('./utils/pathUtils');
 const { movieRouter } = require('./Router/movieRouter');
+const { authMovies } = require('./Router/authRouter');
 
 
 
 app.set('views', 'views');
 app.set('view engine', 'ejs');
 
+app.use(express.urlencoded());
 
 app.use(cors());
+app.use(authMovies);
 app.use(movieRouter);
-// app.use(, movieRouter);
 
 app.use(express.static(path.join(rootDir, 'public')));
+
 
 const port = 3005;
 mongoose.connect(process.env.MONGOURL).then(() => {

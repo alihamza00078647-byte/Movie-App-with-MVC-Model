@@ -6,8 +6,12 @@ const movieController = require('../Controller/movieController');
 
 
 movieRouter.get('/', movieController.getHomePage);
+
 movieRouter.get('/moviedetials/:movieId', movieController.getMoviesPage);
-// movieRouter.get('');
+
+movieRouter.post('/search', movieController.postSearchItem);
+
+movieRouter.get('/watch', movieController.getWatchPage);
 
 
 

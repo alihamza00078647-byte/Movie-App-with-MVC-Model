@@ -1,11 +1,12 @@
 <%- include('../partials/head') %>
 <body class="bg-gray-900 text-gray-100 antialiased">
 
-    <!-- Header Section -->
-    <%- include('../partials/searchbar')%>
+    <!-- Search Bar Section -->
+    <%- include('../partials/searchbar') %>
 
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-6 pb-12">
+        <h1 class="text-center text-4xl text-white mb-6"> List Searched Items.</h1>
         <% if (movies && movies.length > 0) { %>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <% movies.forEach(movie => { %>
