@@ -7,6 +7,7 @@ const comments = require('../model/comments');
 
 
 
+
 function capitalize(str) {
     if (!str) return ""; // Check agar string khali hai
 
@@ -46,7 +47,11 @@ function capitalize(str) {
 exports.postSearchItem = async (req, res, next) => {
     const { query } = req.body;
     
-    let searchItem = capitalize(query.trim()); // Output: "Hello Ki H"
+    let searchItem = capitalize(query.trim());
+    if (!searchItem) {
+        return res.redirect(req.get('referer' || '/'));
+    }
+
     const search = await embedded_movies.find({title : {$regex: searchItem}}).select('-plot_embedding -plot_embedding_voyage_3_large');
     // console.log(search);
     return res.render('guest/searchMovies', {

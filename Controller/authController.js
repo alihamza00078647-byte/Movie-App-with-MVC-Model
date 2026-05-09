@@ -5,5 +5,5 @@ exports.getLoginPage = (req, res, next) => {
 }
 
 exports.getSignupPage = (req, res, next) => {
-    res.render('auth/signup', {pageTitle : 'Login page'});
+    res.render('auth/signup', {pageTitle : 'Signup page'});
 }
