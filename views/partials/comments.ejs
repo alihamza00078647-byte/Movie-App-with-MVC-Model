@@ -1,57 +1,47 @@
-<!-- Grid Container: Mobile par 1 column, Desktop par 2 columns -->
-
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto my-8 px-4">
   
-  <%# Agar aap loop use kar rahe hain to yahan se start hoga %>
-  <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
-    
-    <div>
-      <!-- Header: User Info & Date -->
-      <div class="flex items-start justify-between mb-4 gap-2">
-        <div class="flex items-center gap-4">
-          <!-- User Avatar Placeholder -->
-          <div class="h-10 w-10 md:h-12 md:w-12 shrink-0 rounded-full bg-gradient-to-br from-red-500 to-orange-600 flex items-center justify-center text-white font-bold text-sm md:text-lg shadow-inner">
-            <% let initials = name.split(' ').map(el => el[0]).join('') %>
-            <%= initials %>
+    <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+      
+      <div>
+        <div class="flex items-start justify-between mb-4 gap-2">
+          <div class="flex items-center gap-4">
+            <div class="h-10 w-10 shrink-0 rounded-full bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-white font-bold shadow-lg">
+              <% let initials = name.split(' ').map(el => el[0]).join('') %>
+              <%=  initials %>
+            </div>
+            
+            <div class="overflow-hidden">
+              <h3 class="text-gray-100 font-bold leading-tight truncate"><%= name %></h3>
+              <p class="text-gray-400 text-xs lowercase italic truncate"><%= email %></p>
+            </div>
           </div>
-          
-          <div class="overflow-hidden">
-            <h3 class="text-gray-100 font-bold leading-tight truncate"><%= name %></h3>
-            <p class="text-gray-400 text-[10px] md:text-xs lowercase italic truncate"><%= email %></p>
-          </div>
+
+          <time class="hidden sm:inline-block text-gray-500 text-[10px] font-medium bg-slate-900/80 px-2 py-1 rounded border border-slate-700 shrink-0">
+            Aug 18, 2002
+          </time>
         </div>
 
-        <!-- Formatted Date -->
-        <time class="text-gray-500 text-[10px] font-medium bg-gray-900/50 px-2 py-1 rounded border border-gray-700 shrink-0 hidden md:inline sm:inline">
-          Aug 18, 2002
-        </time>
+        <div class="relative pl-3 border-l-2 border-red-600/50">
+          <p class="text-gray-300 leading-relaxed text-sm line-clamp-4">
+            <%= text %>
+          </p>
+        </div>
       </div>
 
-      <!-- Comment Text -->
-      <div class="relative pl-3 border-l-2 border-red-600/40">
-        <p class="text-gray-300 leading-relaxed text-sm line-clamp-4">
-          <%= text %>
-        </p>
+      <div class="mt-6 flex items-center gap-6 border-t border-slate-700/50 pt-4">
+        <button class="flex items-center gap-1.5 text-xs font-semibold text-gray-400 hover:text-red-500 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l5 5m-5-5l5-5" />
+          </svg>
+          Reply
+        </button>
+        
+        <button class="flex items-center gap-1.5 text-xs font-semibold text-gray-400 hover:text-red-500 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+          Like
+        </button>
       </div>
     </div>
-
-    <!-- Footer: Simple Interactions -->
-    <div class="mt-6 flex items-center gap-6 border-t border-gray-700/50 pt-4">
-      <button class="flex items-center gap-1.5 text-xs font-semibold text-gray-400 hover:text-red-500 transition-colors">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.757c1.246 0 2.25 1.004 2.25 2.25v6.75c0 1.246-1.004 2.25-2.25 2.25H14m-5.921-3.042l3.421 3.421m0 0l3.421-3.421m-3.421 3.421V3" />
-        </svg>
-        Reply
-      </button>
-      
-      <button class="flex items-center gap-1.5 text-xs font-semibold text-gray-400 hover:text-white transition-colors">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-        </svg>
-        Like
-      </button>
-    </div>
-  </div>
-  <%# End Loop %>
-
 </div>

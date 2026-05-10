@@ -157,8 +157,8 @@
                 <%- include('../partials/movieCard', {movie : movie}) %>
             <% }); %>
         </div>
-        <% comment.forEach(({name, email, text}) => { %>
-            <%- include('../partials/comments', {name, email, text}) %>
+        <% comment.forEach(comments => { %>
+            <%- include('../partials/comments', {name: comments.name, email: comments.email, text: comments.text}) %>
         <% }); %>
     </main>
 
