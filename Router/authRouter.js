@@ -9,7 +9,6 @@ const authController = require('../Controller/authController');
 
 authMovies.get('/login', authController.getLoginPage);
 
-
 authMovies.get('/signup', authController.getSignupPage);
 
 

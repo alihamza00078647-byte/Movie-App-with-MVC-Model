@@ -12,7 +12,7 @@ const path = require('path');
 const rootDir = require('./utils/pathUtils');
 const { movieRouter } = require('./Router/movieRouter');
 const { authMovies } = require('./Router/authRouter');
-
+const {hostRouter} = require('./Router/hostRouter');
 
 
 app.set('views', 'views');
@@ -23,11 +23,13 @@ app.use(express.urlencoded());
 app.use(cors());
 app.use(authMovies);
 app.use(movieRouter);
+app.use(hostRouter);
+
 
 app.use(express.static(path.join(rootDir, 'public')));
 
 
-const port = 3005;
+const port = 3003;
 mongoose.connect(process.env.MONGOURL).then(() => {
     console.log('DB is Connect');
     app.listen(port, () => {    

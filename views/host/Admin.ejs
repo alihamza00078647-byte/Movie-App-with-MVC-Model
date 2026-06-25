@@ -1,0 +1,680 @@
+<%- include('../partials/head') %>
+
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  .dash {
+    display: flex;
+    min-height: 100vh;
+    font-family: var(--font-sans);
+    background: var(--color-background-tertiary);
+  }
+  .sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    background: var(--color-background-primary);
+    border-right: 0.5px solid var(--color-border-tertiary);
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem 0;
+  }
+  .sidebar-brand {
+    padding: 0 1.25rem 1.25rem;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    margin-bottom: 1rem;
+  }
+  .sidebar-brand p {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    margin-top: 2px;
+  }
+  .sidebar-brand h2 {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+  .nav-section {
+    padding: 0 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .nav-label {
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0 0.5rem;
+    margin-bottom: 4px;
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: var(--border-radius-md);
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s;
+    margin-bottom: 2px;
+  }
+  .nav-item:hover {
+    background: var(--color-background-secondary);
+    color: var(--color-text-primary);
+  }
+  .nav-item.active {
+    background: var(--color-background-secondary);
+    color: var(--color-text-primary);
+    font-weight: 500;
+  }
+  .nav-item i {
+    font-size: 16px;
+  }
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .topbar {
+    background: var(--color-background-primary);
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    padding: 0.85rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .topbar h1 {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #eeedfe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: #3c3489;
+    cursor: pointer;
+  }
+  .icon-btn {
+    background: none;
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-md);
+    padding: 6px 8px;
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    display: flex;
+    align-items: center;
+  }
+  .icon-btn:hover {
+    background: var(--color-background-secondary);
+  }
+  .content {
+    padding: 1.5rem;
+    overflow-y: auto;
+    flex: 1;
+  }
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+  .metric {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 1rem;
+  }
+  .metric-label {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .metric-value {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+  .metric-delta {
+    font-size: 11px;
+    margin-top: 4px;
+  }
+  .delta-up {
+    color: var(--color-text-success);
+  }
+  .delta-down {
+    color: var(--color-text-danger);
+  }
+  .grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 1rem 1.25rem;
+  }
+  .card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .card-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+  .card-action {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    border: none;
+    background: none;
+  }
+  .card-action:hover {
+    color: var(--color-text-primary);
+  }
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .bar-label {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    width: 64px;
+    flex-shrink: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .bar-track {
+    flex: 1;
+    height: 6px;
+    background: var(--color-background-secondary);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 99px;
+  }
+  .bar-val {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    width: 36px;
+    text-align: right;
+  }
+  .table-wrap {
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0 8px 10px;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+  }
+  tbody td {
+    padding: 10px 8px;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    color: var(--color-text-primary);
+    vertical-align: middle;
+  }
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+  tbody tr:hover td {
+    background: var(--color-background-secondary);
+  }
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 99px;
+    font-weight: 500;
+  }
+  .badge-green {
+    background: var(--color-background-success);
+    color: var(--color-text-success);
+  }
+  .badge-amber {
+    background: var(--color-background-warning);
+    color: var(--color-text-warning);
+  }
+  .badge-red {
+    background: var(--color-background-danger);
+    color: var(--color-text-danger);
+  }
+  .activity-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+  }
+  .activity-item:last-child {
+    border-bottom: none;
+  }
+  .activity-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 14px;
+  }
+  .activity-text {
+    flex: 1;
+  }
+  .activity-title {
+    font-size: 13px;
+    color: var(--color-text-primary);
+  }
+  .activity-time {
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    margin-top: 2px;
+  }
+  .quick-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .quick-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-md);
+    background: none;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--color-text-primary);
+    text-align: left;
+    width: 100%;
+  }
+  .quick-btn:hover {
+    background: var(--color-background-secondary);
+  }
+  .quick-btn i {
+    font-size: 16px;
+    color: var(--color-text-secondary);
+  }
+  .quick-btn span {
+    flex: 1;
+  }
+  .sidebar-footer {
+    margin-top: auto;
+    padding: 1rem 0.75rem 0;
+    border-top: 0.5px solid var(--color-border-tertiary);
+  }
+</style>
+
+<h2 class="sr-only">
+  Admin dashboard with sidebar navigation, metrics, recent movies table, and
+  activity feed
+</h2>
+
+<div class="dash">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <h2>
+        <i
+          class="ti ti-layout-dashboard"
+          aria-hidden="true"
+          style="margin-right: 6px"
+        ></i
+        >AdminPanel
+      </h2>
+      <p>Movie Platform</p>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Main</div>
+      <a class="nav-item active" href="#"
+        ><i class="ti ti-home" aria-hidden="true"></i> Dashboard</a
+      >
+      <a class="nav-item" href="#"
+        ><i class="ti ti-movie" aria-hidden="true"></i> Movies</a
+      >
+      <a class="nav-item" href="#"
+        ><i class="ti ti-users" aria-hidden="true"></i> Users</a
+      >
+      <a class="nav-item" href="#"
+        ><i class="ti ti-chart-bar" aria-hidden="true"></i> Analytics</a
+      >
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Manage</div>
+      <a class="nav-item" href="#"
+        ><i class="ti ti-upload" aria-hidden="true"></i> Upload movie</a
+      >
+      <a class="nav-item" href="#"
+        ><i class="ti ti-tag" aria-hidden="true"></i> Genres</a
+      >
+      <a class="nav-item" href="#"
+        ><i class="ti ti-flag" aria-hidden="true"></i> Reports</a
+      >
+    </div>
+
+    <div class="sidebar-footer">
+      <a class="nav-item" href="#"
+        ><i class="ti ti-settings" aria-hidden="true"></i> Settings</a
+      >
+      <a class="nav-item" href="#"
+        ><i class="ti ti-logout" aria-hidden="true"></i> Log out</a
+      >
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <h1>Dashboard</h1>
+      <div class="topbar-right">
+        <button class="icon-btn" aria-label="Notifications">
+          <i class="ti ti-bell" aria-hidden="true"></i>
+        </button>
+        <button class="icon-btn" aria-label="Search">
+          <i class="ti ti-search" aria-hidden="true"></i>
+        </button>
+        <div class="avatar" title="Admin">AD</div>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- Metrics -->
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-label">
+            <i class="ti ti-movie" aria-hidden="true"></i> Total movies
+          </div>
+          <div class="metric-value">1,284</div>
+          <div class="metric-delta delta-up">
+            <i class="ti ti-trending-up" aria-hidden="true"></i> +12 this week
+          </div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">
+            <i class="ti ti-users" aria-hidden="true"></i> Active users
+          </div>
+          <div class="metric-value">48,302</div>
+          <div class="metric-delta delta-up">
+            <i class="ti ti-trending-up" aria-hidden="true"></i> +3.2% vs last
+            month
+          </div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">
+            <i class="ti ti-eye" aria-hidden="true"></i> Total views
+          </div>
+          <div class="metric-value">2.1M</div>
+          <div class="metric-delta delta-down">
+            <i class="ti ti-trending-down" aria-hidden="true"></i> −0.8% vs last
+            week
+          </div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">
+            <i class="ti ti-flag" aria-hidden="true"></i> Open reports
+          </div>
+          <div class="metric-value">17</div>
+          <div
+            class="metric-delta delta-up"
+            style="color: var(--color-text-danger)"
+          >
+            <i class="ti ti-alert-circle" aria-hidden="true"></i> 4 need review
+          </div>
+        </div>
+      </div>
+
+      <!-- Middle row -->
+      <div class="grid2">
+        <!-- Genre breakdown -->
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">Views by genre</span>
+            <button class="card-action">See all</button>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Action</span>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                style="width: 82%; background: #534ab7"
+              ></div>
+            </div>
+            <span class="bar-val">82%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Drama</span>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                style="width: 67%; background: #1d9e75"
+              ></div>
+            </div>
+            <span class="bar-val">67%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Comedy</span>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                style="width: 54%; background: #d85a30"
+              ></div>
+            </div>
+            <span class="bar-val">54%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Horror</span>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                style="width: 39%; background: #d4537e"
+              ></div>
+            </div>
+            <span class="bar-val">39%</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">Sci-fi</span>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                style="width: 28%; background: #378add"
+              ></div>
+            </div>
+            <span class="bar-val">28%</span>
+          </div>
+        </div>
+
+        <!-- Quick actions -->
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">Quick actions</span>
+          </div>
+          <div class="quick-links">
+            <button
+              class="quick-btn"
+              onclick="
+                sendPrompt('How do I upload a new movie to the platform?')
+              "
+            >
+              <i class="ti ti-upload" aria-hidden="true"></i
+              ><span>Upload new movie</span
+              ><i class="ti ti-arrow-right" aria-hidden="true"></i>
+            </button>
+            <button
+              class="quick-btn"
+              onclick="sendPrompt('Show me flagged content that needs review')"
+            >
+              <i class="ti ti-flag" aria-hidden="true"></i
+              ><span>Review flagged content</span
+              ><i class="ti ti-arrow-right" aria-hidden="true"></i>
+            </button>
+            <button
+              class="quick-btn"
+              onclick="sendPrompt('Take me to the homepage as a user')"
+            >
+              <i class="ti ti-home" aria-hidden="true"></i
+              ><span>Go to home page</span
+              ><i class="ti ti-arrow-right" aria-hidden="true"></i>
+            </button>
+            <button
+              class="quick-btn"
+              onclick="sendPrompt('Manage genre categories for movies')"
+            >
+              <i class="ti ti-tag" aria-hidden="true"></i
+              ><span>Manage genres</span
+              ><i class="ti ti-arrow-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom row -->
+      <div class="grid2">
+        <!-- Recent movies table -->
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">Recent uploads</span>
+            <button class="card-action">View all</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Genre</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Dune: Part Three</td>
+                  <td>Sci-fi</td>
+                  <td><span class="badge badge-green">Live</span></td>
+                </tr>
+                <tr>
+                  <td>The Last Hunt</td>
+                  <td>Action</td>
+                  <td><span class="badge badge-green">Live</span></td>
+                </tr>
+                <tr>
+                  <td>Midnight Rain</td>
+                  <td>Drama</td>
+                  <td><span class="badge badge-amber">Review</span></td>
+                </tr>
+                <tr>
+                  <td>Laugh Factory</td>
+                  <td>Comedy</td>
+                  <td><span class="badge badge-amber">Review</span></td>
+                </tr>
+                <tr>
+                  <td>Shadow Protocol</td>
+                  <td>Horror</td>
+                  <td><span class="badge badge-red">Flagged</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Activity feed -->
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">Recent activity</span>
+          </div>
+          <div class="activity-item">
+            <div
+              class="activity-icon"
+              style="background: #eeedfe; color: #3c3489"
+            >
+              <i class="ti ti-upload" aria-hidden="true"></i>
+            </div>
+            <div class="activity-text">
+              <div class="activity-title">
+                New movie uploaded — <strong>Dune: Part Three</strong>
+              </div>
+              <div class="activity-time">2 minutes ago</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div
+              class="activity-icon"
+              style="background: #fcebeb; color: #791f1f"
+            >
+              <i class="ti ti-flag" aria-hidden="true"></i>
+            </div>
+            <div class="activity-text">
+              <div class="activity-title">
+                Content flagged — <strong>Shadow Protocol</strong>
+              </div>
+              <div class="activity-time">18 minutes ago</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div
+              class="activity-icon"
+              style="background: #eaf3de; color: #27500a"
+            >
+              <i class="ti ti-user-plus" aria-hidden="true"></i>
+            </div>
+            <div class="activity-text">
+              <div class="activity-title">248 new users registered today</div>
+              <div class="activity-time">1 hour ago</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div
+              class="activity-icon"
+              style="background: #faeeda; color: #633806"
+            >
+              <i class="ti ti-edit" aria-hidden="true"></i>
+            </div>
+            <div class="activity-text">
+              <div class="activity-title">
+                Genre updated — <strong>Action</strong> renamed
+              </div>
+              <div class="activity-time">3 hours ago</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
